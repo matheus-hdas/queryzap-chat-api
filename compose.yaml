@@ -1,0 +1,22 @@
+services:
+  evolution-api:
+    image: atendai/evolution-api
+    ports:
+      - "9876:9876"
+    env_file:
+      - .env.development
+    volumes:
+      - evolution_instances:/evolution/instances
+
+  postgres:
+    image: postgres:16-alpine3.21
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env.development
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  evolution_instances:
+  postgres_data:
