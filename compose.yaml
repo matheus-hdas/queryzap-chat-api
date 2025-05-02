@@ -1,10 +1,10 @@
 services:
   evolution-api:
-    image: atendai/evolution-api
+    image: atendai/evolution-api:v1.8.2
     ports:
-      - "9876:9876"
+      - "9876:8080"
     env_file:
-      - .env.development
+      - evolution-api.env
     volumes:
       - evolution_instances:/evolution/instances
 
@@ -17,6 +17,27 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  mongodb:
+    image: mongo:7.0.20
+    ports:
+      - "27017:27017"
+    env_file:
+      - .env.development
+    volumes:
+      - mongo_data:/var/lib/mongodb/data
+
+  redis:
+    image: redis:7.2.1-alpine
+    ports:
+      - "6379:6379"
+    env_file:
+      - .env.development
+    volumes:
+      - redis_data:/var/lib/redis/data
+
+
 volumes:
   evolution_instances:
   postgres_data:
+  mongo_data:
+  redis_data:
